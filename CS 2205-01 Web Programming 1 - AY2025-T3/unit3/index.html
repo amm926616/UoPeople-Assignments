@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 500px;
+        }
+        label {
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .preview {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Contact Us</h2>
+    <form id="contactForm" method="POST" action="/submit">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+        <span class="error" id="nameError"></span><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br>
+        <span class="error" id="emailError"></span><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone"><br>
+        <span class="error" id="phoneError"></span><br>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message"></textarea><br>
+        <span class="error" id="messageError"></span><br>
+
+        <label>Preferred Contact Method:</label><br>
+        <input type="radio" name="contactMethod" value="Email"> Email
+        <input type="radio" name="contactMethod" value="Phone"> Phone
+        <input type="radio" name="contactMethod" value="Both"> Both
+        <br><span class="error" id="contactError"></span><br>
+
+        <label for="inquiry">Inquiry Type:</label>
+        <select id="inquiry" name="inquiry">
+            <option value="">Select an option</option>
+            <option value="General Inquiry">General Inquiry</option>
+            <option value="Support Request">Support Request</option>
+            <option value="Feedback">Feedback</option>
+        </select><br>
+        <span class="error" id="inquiryError"></span><br>
+
+        <button type="button" onclick="previewForm()">Preview</button>
+        <button type="submit" onclick="return validateForm()">Submit</button>
+    </form>
+
+    <div class="preview" id="previewBox">
+        <h3>Preview:</h3>
+        <p><strong>Name:</strong> <span id="previewName"></span></p>
+        <p><strong>Email:</strong> <span id="previewEmail"></span></p>
+        <p><strong>Phone:</strong> <span id="previewPhone"></span></p>
+        <p><strong>Message:</strong> <span id="previewMessage"></span></p>
+        <p><strong>Preferred Contact:</strong> <span id="previewContact"></span></p>
+        <p><strong>Inquiry Type:</strong> <span id="previewInquiry"></span></p>
+    </div>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let phone = document.getElementById("phone").value.trim();
+            let message = document.getElementById("message").value.trim();
+            let contactMethod = document.querySelector('input[name="contactMethod"]:checked');
+            let inquiry = document.getElementById("inquiry").value;
+
+            if (name === "") {
+                document.getElementById("nameError").textContent = "Name is required.";
+                isValid = false;
+            }
+            if (email === "" || !/\S+@\S+\.\S+/.test(email)) {
+                document.getElementById("emailError").textContent = "Valid email is required.";
+                isValid = false;
+            }
+            if (phone === "" || !/^\d{10}$/.test(phone)) {
+                document.getElementById("phoneError").textContent = "Enter a 10-digit phone number.";
+                isValid = false;
+            }
+            if (message === "") {
+                document.getElementById("messageError").textContent = "Message cannot be empty.";
+                isValid = false;
+            }
+            if (!contactMethod) {
+                document.getElementById("contactError").textContent = "Select a contact method.";
+                isValid = false;
+            }
+            if (inquiry === "") {
+                document.getElementById("inquiryError").textContent = "Select an inquiry type.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function previewForm() {
+            if (!validateForm()) return;
+
+            document.getElementById("previewName").textContent = document.getElementById("name").value;
+            document.getElementById("previewEmail").textContent = document.getElementById("email").value;
+            document.getElementById("previewPhone").textContent = document.getElementById("phone").value;
+            document.getElementById("previewMessage").textContent = document.getElementById("message").value;
+            document.getElementById("previewContact").textContent = document.querySelector('input[name="contactMethod"]:checked').value;
+            document.getElementById("previewInquiry").textContent = document.getElementById("inquiry").value;
+
+            document.getElementById("previewBox").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>

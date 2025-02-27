@@ -1,0 +1,4 @@
+2025-01-10 07:31:50 - Yangon: Failed to fetch weather data: Failed making field 'com.uopeople.weatherforecastapp.WeatherData#main' accessible; either increase its visibility or write a custom TypeAdapter for its declaring type.
+2025-01-10 07:32:22 - Yangon: Failed to fetch weather data: Failed making field 'com.uopeople.weatherforecastapp.WeatherData#main' accessible; either increase its visibility or write a custom TypeAdapter for its declaring type.
+2025-01-10 07:33:19 - Yangon: Failed to fetch weather data: Failed making field 'com.uopeople.weatherforecastapp.WeatherData#main' accessible; either increase its visibility or write a custom TypeAdapter for its declaring type.
+2025-01-10 07:33:43 - Yangon: Failed to fetch weather data: java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $
